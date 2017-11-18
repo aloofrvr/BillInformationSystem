@@ -3,7 +3,9 @@
 const db = require(__dirname + '/../lib/mysql');
 
 exports.viewBills = (req, res, next) => {
-	db.query("select * FROM BILL",[],(err, result) => {
+	const queryline = 'select * from BILL where ' + req.query.key + '="' + req.query.value + '"';
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
 		res.send(result);
 	})
 };

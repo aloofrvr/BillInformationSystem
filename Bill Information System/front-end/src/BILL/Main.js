@@ -120,7 +120,7 @@ class Update extends Component {
             <option>Scope</option>
             <option>Secondary Committee</option>
           </select>
-          <textarea onChange={this.handleBillNoChange} placeholder="Enter Bill Number"></textarea>
+          <input onChange={this.handleBillNoChange} placeholder="Enter Bill Number"></input>
           <textarea onChange={this.handleValueChange} placeholder="Enter new value"></textarea>
           <input type="button" onClick={this.submitUpdate} value="Update Bill"></input>
         </form>
@@ -132,22 +132,37 @@ class Update extends Component {
 class Search extends Component {
   constructor(props) {
     super(props);
+    autobind(this);
     this.state={
       key: "",
       value: "",
       bills: []
     };
+  }
 
-    this.submitClicked = this.submitClicked.bind(this);
+  handleKeyChange(e){
+    this.setState({
+      key: e.target.value
+    })
+  }
+
+  handleValueChange(e){
+    this.setState({
+      value: e.target.value
+    })
   }
 
   submitClicked(e){
-		fetch(`http://localhost:3001/bills`)
+    console.log(this.state);
+		fetch(`http://localhost:3001/bills?key=${this.state.key}&value=${this.state.value}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
-			this.setState({ bills: result});
+			this.setState({ bills: result });
 		})
 		.catch((e) => { console.log(e); });
+
+    console.log(this.state.bills);
+    this.forceUpdate();
   }
 
   render(){
@@ -155,8 +170,8 @@ class Search extends Component {
       <fieldset>
         <legend>Search</legend>
         <form>
-          <select>
-            <option defaultValue disabled>Field to search</option>
+          <select onChange={this.handleKeyChange}>
+            <option selected disabled>Field to search</option>
             <option>Billno</option>
             <option>Subjects</option>
             <option>Status</option>
@@ -168,7 +183,7 @@ class Search extends Component {
             <option>Scope</option>
             <option>Secondary Committee</option>
           </select>
-          <textarea placeholder="Value to search"></textarea>
+          <textarea onChange={this.handleValueChange} placeholder="Value to search"></textarea>
           <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
         </form>
         {
