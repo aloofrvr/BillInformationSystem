@@ -9,7 +9,9 @@ body{
 fieldset {
   width:280px;
   margin:10px;
-  float:left
+  height:300px;
+  float:left;
+  overflow: auto
 }
 
 h1 {
@@ -30,19 +32,38 @@ nav {
   text-align:center;
 }
 
+#navigator {
+  width:100%
+}
+
 input {
   margin:5px;
-  width:250px;
+  width:199px;
+  float:left;
 }
 
 textarea {
   margin:5px;
-  width:250px;
-  height:250px;
+  width:410px;
+  height:125px;
   resize: none;
+  float:left;
 }
 
 select {
   width:250px;
   margin:5px;
+}
+
+#searchResults {
+  width: 805px;
+}
+
+#add {
+  width:1280px;
+}
+
+h6 {
+  clear:both;
+  text-align:center;
 }

@@ -4,7 +4,7 @@ import './App.css'
 class Header extends Component {
   render(){
     return(
-      <div>
+      <div id="navigator">
         <h1>BILL INFORMATION SYSTEM</h1>
         <hr/>
         <nav>

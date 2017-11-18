@@ -8,8 +8,8 @@ class Main extends Component {
       <div>
         <div id="fields">
           <Add />
-          <Update />
           <Search />
+          <Update />
           <Delete />
         </div>
       </div>
@@ -26,21 +26,20 @@ class Add extends Component {
 
   render(){
       return(
-        <fieldset>
+        <fieldset id="add">
         <legend>Add</legend>
         <form>
           <input placeholder="Billno"></input>
-          <textarea placeholder="Subjects
-          (Separate multiple values with a semi-colon)"></textarea>
           <input placeholder="Status"></input>
-          <input placeholder="Type"></input>
-          <textarea placeholder="Summary Description"></textarea>
           <input placeholder="Title"></input>
-          <textarea placeholder="Content"></textarea>
           <input placeholder="Primary Committee"></input>
           <input placeholder="Scope"></input>
           <input placeholder="Seconday Committee"></input>
-          <input type="submit" value="Add Bill"></input>
+          <textarea placeholder="Subjects
+          (Separate multiple values with a semi-colon)"></textarea>
+          <textarea placeholder="Summary Description"></textarea>
+          <textarea id="content" placeholder="Content"></textarea>
+          <input id="addButton" type="submit" value="Add Bill"></input>
         </form>
       </fieldset>
     )
@@ -56,6 +55,8 @@ class Update extends Component {
       billno: "",
       value: ""
     };
+
+    this.prompt=""
   }
 
   handleKeyChange(e){
@@ -91,15 +92,6 @@ class Update extends Component {
     .catch(function (error) {
       console.log('Request failure: ', error);
     });
-
-    // fetch('http://www.localhost:3001/updateBills', {
-    //   method: 'POST',
-    //   body: JSON.stringify(this.state)
-    // }).then(function(response) {
-    //   return response;
-    // }).then(function(data) {
-    //   console.log("Success: ");
-    // });
   }
 
   render(){
@@ -124,6 +116,7 @@ class Update extends Component {
           <textarea onChange={this.handleValueChange} placeholder="Enter new value"></textarea>
           <input type="button" onClick={this.submitUpdate} value="Update Bill"></input>
         </form>
+        <h6>{this.prompt}</h6>
       </fieldset>
     )
   }
@@ -167,6 +160,7 @@ class Search extends Component {
 
   render(){
     return(
+      <div>
       <fieldset>
         <legend>Search</legend>
         <form>
@@ -186,18 +180,24 @@ class Search extends Component {
           <textarea onChange={this.handleValueChange} placeholder="Value to search"></textarea>
           <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
         </form>
+      </fieldset>
+      <fieldset  id="searchResults">
+        <legend>SEARCH RESULTS</legend>
         {
           this.state.bills.map((bill) => {
             return(
-              <div key={bill.Billno}>
+              <div id="searchResults" key={bill.Billno}>
                 <div>
                   <p>Billno: {bill.Billno}</p>
+                  <p>Status: {bill.Status}</p>
+                  <hr/>
                 </div>
               </div>
             )
           })
         }
       </fieldset>
+      </div>
     )
   }
 }
